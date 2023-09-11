@@ -16,7 +16,7 @@ number_columns = ['a', 'b', 'c', 'd', 'e']
 max_number = data[number_columns].max().max()
 
 # Define the introduction dates of balls 1-56 and balls 57-75
-introduction_date_1_56 = pd.to_datetime('05-17-2002', format='%m-%d-%Y')
+introduction_date_1_56 = pd.to_datetime('07-17-2002', format='%m-%d-%Y')
 introduction_date_57_75 = pd.to_datetime('10-22-2013', format='%m-%d-%Y')
 
 # Create dictionaries to store the frequency of each number for 1-56 and 57-75
