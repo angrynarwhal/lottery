@@ -12,15 +12,11 @@
 
 # Psuedo Code
 
-## 2. Define the column names that represent the lottery numbers (e.g., 'Number 1', 'Number 2', ...).
+ 1. Define the introduction dates of balls 1-56 and balls 57-75.
 
-## 3. Determine the maximum number present in the dataset.
+ 2. Create dictionaries and lists to store the frequency and cumulative frequency of each number for 1-56 and 57-75.
 
-## 4. Define the introduction dates of balls 1-56 and balls 57-75.
-
-## 5. Create dictionaries and lists to store the frequency and cumulative frequency of each number for 1-56 and 57-75.
-
-## 6. Iterate through each row of the data:
+ 3. Iterate through each row of the data:
     a. Extract the date of the draw.
     b. For each number column:
         - Extract the number.
@@ -31,19 +27,9 @@
                 - If it's 57-75 and the draw date is after the introduction date:
                     - Update the frequency and cumulative frequency for 57-75.
 
-## 7. Calculate the total number of draws in the previous 1 year for balls 1-56 and 57-75 separately.
+ 4. Calculate the total number of draws in the previous 1 year for balls 1-56 and 57-75 separately.
 
-## 8. Calculate the probability of each number occurring in the previous 1 year for 1-56 and 57-75 separately.
+ 5. Calculate the probability of each number occurring in the previous 1 year for 1-56 and 57-75 separately.
 
-## 9. Combine the probabilities of numbers 1-56 and 57-75.
-
-## 10. Sort the numbers by their probability in descending order.
-
-## 11. Display the probabilities of each number occurring in the previous 1 year.
-
-## 12. Generate a bar chart to visualize the probability of each number and save it to a file.
-
-## 13. Save the most frequent numbers by week, month, quarter, and year to a file.
-
-## 14. Generate and save the cumulative frequency for each number by week, month, and year.
+ 6. Combine the probabilities of numbers 1-56 and 57-75.
 
