@@ -1,0 +1,11 @@
+One way to normalize the historical averages is to only look at data from when the number 57-75 got introduced. From the data this looks to start at about 2014. I tried this out first and it normalized number 57-70; however 71-75 were still skewed. When I took a closer look I found that 71-75 were no longer numbers that came up in the lottery after 2018. So, if we wanted to get an accurate representation of when 57-75 were in the data then we would only be able to look at data from 2014-2018. This could be done by adding these lines of code after line 29 in megamillions-from-apriori.py:
+
+if date < pd.to_datetime("1/1/2014") or date > pd.to_datetime("1/1/2018"):
+    continue
+
+However, if we only wanted to look at the current possible lottery numbers that are possible (1-70) then this code after line 29 in megamillions-from-apriori.py would need to be added:
+
+if date < pd.to_datetime("1/1/2018"):
+    continue
+
+In the code I will add the first as the solution and then the second as a comment.
