@@ -15,6 +15,10 @@ number_columns = ['a', 'b', 'c', 'd', 'e']
 # Determine the maximum number present in the dataset
 max_number = data[number_columns].max().max()
 
+# Define the introduction dates of balls 1-56 and balls 57-75
+introduction_date_1_56 = pd.to_datetime('05-17-2002', format='%m-%d-%Y')
+introduction_date_57_75 = pd.to_datetime('10-22-2013', format='%m-%d-%Y')
+
 # Create dictionaries to store the frequency of each number for 1-56 and 57-75
 number_frequency_1_56 = {number: 0 for number in range(1, 57)}
 number_frequency_57_75 = {number: 0 for number in range(57, 76)}
@@ -22,9 +26,6 @@ number_frequency_57_75 = {number: 0 for number in range(57, 76)}
 # Create a list to store the cumulative frequency for each number for 1-56 and 57-75
 cumulative_frequency_1_56 = {number: [] for number in range(1, 57)}
 cumulative_frequency_57_75 = {number: [] for number in range(57, 76)}
-
-# Calculate the start date for the previous 1 year
-one_year_ago = data['date'].max() - pd.DateOffset(years=1)
 
 # Iterate through each row of the data and calculate the weekly and cumulative frequencies
 for _, row in data.iterrows():
@@ -36,19 +37,22 @@ for _, row in data.iterrows():
         if pd.notnull(number):
             number = int(number)
             if 1 <= number <= max_number:  # Check if the number is within the valid range
-                if number <= 56:
-                    number_frequency_1_56[number] = number_frequency_1_56.get(number, 0) + 1
-                    cumulative_frequency_1_56[number].append((date, number_frequency_1_56[number]))
-                else:
-                    number_frequency_57_75[number] = number_frequency_57_75.get(number, 0) + 1
-                    cumulative_frequency_57_75[number].append((date, number_frequency_57_75[number]))
+                if date >= introduction_date_1_56:
+                    if number <= 56:
+                        number_frequency_1_56[number] = number_frequency_1_56.get(number, 0) + 1
+                        cumulative_frequency_1_56[number].append((date, number_frequency_1_56[number]))
+                if date >= introduction_date_57_75:
+                    if 57 <= number <= 75:
+                        number_frequency_57_75[number] = number_frequency_57_75.get(number, 0) + 1
+                        cumulative_frequency_57_75[number].append((date, number_frequency_57_75[number]))
 
-# Calculate the total number of draws in the previous 1 year
-total_draws_1_year = data[data['date'] >= one_year_ago]['date'].count()
+# Calculate the total number of draws in the previous 1 year for balls 1-56 and 57-75
+total_draws_1_year_1_56 = data[(data['date'] >= introduction_date_1_56) & (data['date'] >= (introduction_date_1_56 + pd.DateOffset(years=1)))]['date'].count()
+total_draws_1_year_57_75 = data[(data['date'] >= introduction_date_57_75) & (data['date'] >= (introduction_date_57_75 + pd.DateOffset(years=1)))]['date'].count()
 
 # Calculate the probability of each number occurring in the previous 1 year for 1-56 and 57-75
-number_probabilities_1_56 = {number: freq / total_draws_1_year for number, freq in number_frequency_1_56.items()}
-number_probabilities_57_75 = {number: freq / total_draws_1_year for number, freq in number_frequency_57_75.items()}
+number_probabilities_1_56 = {number: freq / total_draws_1_year_1_56 for number, freq in number_frequency_1_56.items()}
+number_probabilities_57_75 = {number: freq / total_draws_1_year_57_75 for number, freq in number_frequency_57_75.items()}
 
 # Combine the probabilities of numbers 1-56 and 57-75
 number_probabilities = {**number_probabilities_1_56, **number_probabilities_57_75}
@@ -117,27 +121,4 @@ with open('most_frequent_numbers.txt', 'w') as f:
 
 # ...
 
-# Generate and save the cumulative frequency for each number by week, month, and year
-for number in range(1, max_number + 1):
-    date_freq = pd.DataFrame(cumulative_frequency[number], columns=['Date', 'Frequency'])
-    date_freq.set_index('Date', inplace=True)
-    date_freq.index = pd.to_datetime(date_freq.index)  # Convert the index to a datetime-like index
-
-    plt.figure(figsize=(10, 4))
-    plt.plot(date_freq.resample('W').sum(), label='Weekly')
-    plt.plot(date_freq.resample('M').sum(), label='Monthly')
-    plt.plot(date_freq.resample('Q').sum(), label='Quarterly')
-    plt.plot(date_freq.resample('Y').sum(), label='Yearly')
-
-    plt.title(f"Cumulative Frequency - Number {number}")
-    plt.xlabel('Date')
-    plt.ylabel('Frequency')
-    plt.legend()
-    plt.tight_layout()
-
-    # Save the plot to a file
-    filename = f'number_{number}_frequencies.png'
-    plt.savefig(filename)
-    plt.close()
-
-# ...
+# Generate and save the cumulative frequency for each number by week, month,
