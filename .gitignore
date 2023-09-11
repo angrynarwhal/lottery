@@ -170,3 +170,6 @@ cython_debug/
 !Lotter*.csv
 !mega*.csv
 !top14.csv
+
+## explaination file for the revised version
+!explaination.txt
