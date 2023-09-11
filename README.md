@@ -12,7 +12,9 @@ The lottery is in the opinion of this developer, a game for people who are bad a
 
 ## megamillions-from-apriori.py
 - Reads `megamillions.csv`, which is a listing through July, 2023 of the historic occurence of balls. 
-- Outputs each ball number's occurrence rate from 2002-July, 2023. Take note that balls 57-75 were added at some point, so their 21 year historical probabilities are heavily skewed low if you examine the entire dataset. 
+- Outputs each ball number's occurrence rate from 2002-July, 2023.
+- Balls 57-75 are split from 1-56 due to them only being available since 2013-October.
+- It then gets combines these two data sets into one set.
 - One image pops up for the first ball number, then
 - It generates a trend graph for each ball number
 - It generates a poor, useless set of graphs of the most common ball numbers by week/month/quarter/year. This needs some work
