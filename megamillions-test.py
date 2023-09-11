@@ -65,6 +65,30 @@ sorted_probabilities_additional = sorted(additional_number_probabilities.items()
 for number, probability in sorted_probabilities_additional:
     print(f"Number {number}: Probability = {probability:.6f}")
 
+# Generate a bar chart for the probability of each number for balls 1-56 and save it to a file
+number_values, probabilities = zip(*sorted_probabilities)
+plt.figure(figsize=(12, 6))
+plt.bar(number_values, probabilities, tick_label=number_values)
+plt.xlabel('Number')
+plt.ylabel('Probability')
+plt.title('Probability of Each Number Occurring in the Previous 1 Year (Balls 1-56)')
+plt.xticks(rotation=45)
+plt.tight_layout()
+plt.savefig('number_probabilities.png')
+plt.show()
+
+# Generate a bar chart for the probability of each number for balls 57-75 and save it to a file
+number_values_additional, probabilities_additional = zip(*sorted_probabilities_additional)
+plt.figure(figsize=(12, 6))
+plt.bar(number_values_additional, probabilities_additional, tick_label=number_values_additional)
+plt.xlabel('Number')
+plt.ylabel('Probability')
+plt.title('Probability of Each Number Occurring in the Previous 1 Year (Balls 57-75)')
+plt.xticks(rotation=45)
+plt.tight_layout()
+plt.savefig('number_probabilities_additional.png')
+plt.show()
+
 # ...
 
 # ...
@@ -79,18 +103,6 @@ sorted_probabilities = sorted(number_probabilities.items(), key=lambda x: x[1], 
 for number, probability in sorted_probabilities:
     print(f"Number {number}: Probability = {probability:.6f}")
 
-# Generate a bar chart for the probability of each number for balls 1-56 and save it to a file
-number_values, probabilities = zip(*sorted_probabilities)
-plt.figure(figsize=(12, 6))
-plt.bar(number_values, probabilities, tick_label=number_values)
-plt.xlabel('Number')
-plt.ylabel('Probability')
-plt.title('Probability of Each Number Occurring in the Previous 1 Year (Balls 1-56)')
-plt.xticks(rotation=45)
-plt.tight_layout()
-plt.savefig('number_probabilities.png')
-plt.show()
-
 # Sort the numbers by their probability in descending order for balls 57-75
 sorted_probabilities_additional = sorted(additional_number_probabilities.items(), key=lambda x: x[1], reverse=True)
 
@@ -98,19 +110,11 @@ sorted_probabilities_additional = sorted(additional_number_probabilities.items()
 for number, probability in sorted_probabilities_additional:
     print(f"Number {number}: Probability = {probability:.6f}")
 
-# Generate a bar chart for the probability of each number for balls 57-75 and save it to a file
-number_values_additional, probabilities_additional = zip(*sorted_probabilities_additional)
-plt.figure(figsize=(12, 6))
-plt.bar(number_values_additional, probabilities_additional, tick_label=number_values_additional)
-plt.xlabel('Number')
-plt.ylabel('Probability')
-plt.title('Probability of Each Number Occurring in the Previous 1 Year (Balls 57-75)')
-plt.xticks(rotation=45)
-plt.tight_layout()
-plt.savefig('number_probabilities_additional.png')
-plt.show()
+# ...
 
-# Save the most frequent numbers by week, month, quarter, and year to a file
+# ...
+
+# Save the most frequent numbers by week, month, quarter, and year to a file for balls 1-56
 with open('most_frequent_numbers.txt', 'w') as f:
     for freq_period in ['W', 'M', 'Q', 'Y']:
         f.write(f"Most frequent numbers by {freq_period} (Balls 1-56):\n")
@@ -151,13 +155,52 @@ with open('most_frequent_numbers.txt', 'w') as f:
         plt.savefig(filename)
         plt.close()
 
-    # Repeat the above process for balls 57-75 if needed
+# Save the most frequent numbers by week, month, quarter, and year to a file for balls 57-75
+with open('most_frequent_numbers_additional.txt', 'w') as f:
+    for freq_period in ['W', 'M', 'Q', 'Y']:
+        f.write(f"Most frequent numbers by {freq_period} (Balls 57-75):\n")
+        most_frequent_numbers_by_period_additional = []
+
+        for number in range(57, 76):
+            date_freq = pd.DataFrame(additional_cumulative_frequency[number], columns=['Date', 'Frequency'])
+            date_freq.set_index('Date', inplace=True)
+            date_freq.index = pd.to_datetime(date_freq.index)  # Convert the index to a datetime-like index
+
+            if not date_freq.empty:
+                date_freq = date_freq.sort_index(ascending=False)
+                most_frequent_numbers_additional = date_freq.resample(freq_period)['Frequency'].sum().nlargest(5)
+                most_frequent_numbers_by_period_additional.extend(list(zip([number] * len(most_frequent_numbers_additional), most_frequent_numbers_additional)))
+
+        # Sort the numbers by frequency in descending order
+        most_frequent_numbers_by_period_additional.sort(key=lambda x: x[1], reverse=True)
+
+        for i, (number, freq) in enumerate(most_frequent_numbers_by_period_additional[:5]):
+            f.write(f"{i+1}. Number {number}: {freq} occurrences\n")
+        f.write('\n')
+
+        # Create a data frame for each time period
+        df_additional = pd.DataFrame(most_frequent_numbers_by_period_additional, columns=['Number', 'Frequency'])
+        df_additional.set_index('Number', inplace=True)
+
+        # Plot the most frequent numbers for each time period in time series order
+        plt.figure(figsize=(10, 4))
+        plt.plot(df_additional['Frequency'], marker='o')
+        plt.xlabel('Number')
+        plt.ylabel('Frequency')
+        plt.title(f"Most frequent numbers by {freq_period} (Balls 57-75)")
+        plt.xticks(range(57, 76), df_additional.index, rotation=45)
+        plt.tight_layout()
+
+        # Save the plot to a file
+        filename_additional = f'most_frequent_numbers_by_{freq_period}_additional.png'
+        plt.savefig(filename_additional)
+        plt.close()
 
 # ...
 
 # ...
 
-# Generate and save the cumulative frequency for each number by week, month, and year
+# Generate and save the cumulative frequency for each number by week, month, and year for balls 1-56
 for number in range(1, 57):
     date_freq = pd.DataFrame(cumulative_frequency[number], columns=['Date', 'Frequency'])
     date_freq.set_index('Date', inplace=True)
@@ -180,6 +223,27 @@ for number in range(1, 57):
     plt.savefig(filename)
     plt.close()
 
-# Repeat the above process for balls 57-75 if needed
+# Generate and save the cumulative frequency for each number by week, month, and year for balls 57-75
+for number in range(57, 76):
+    date_freq = pd.DataFrame(additional_cumulative_frequency[number], columns=['Date', 'Frequency'])
+    date_freq.set_index('Date', inplace=True)
+    date_freq.index = pd.to_datetime(date_freq.index)  # Convert the index to a datetime-like index
+
+    plt.figure(figsize=(10, 4))
+    plt.plot(date_freq.resample('W').sum(), label='Weekly')
+    plt.plot(date_freq.resample('M').sum(), label='Monthly')
+    plt.plot(date_freq.resample('Q').sum(), label='Quarterly')
+    plt.plot(date_freq.resample('Y').sum(), label='Yearly')
+
+    plt.title(f"Cumulative Frequency - Number {number} (Balls 57-75)")
+    plt.xlabel('Date')
+    plt.ylabel('Frequency')
+    plt.legend()
+    plt.tight_layout()
+
+    # Save the plot to a file
+    filename = f'number_{number}_frequencies_additional.png'
+    plt.savefig(filename)
+    plt.close()
 
 # ...
