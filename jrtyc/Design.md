@@ -1,6 +1,6 @@
 # Updated Apriori Code
 
-## The main issue is derivided from the life of balls 57-75
+## The main issue is derived from the life of balls 57-75
 ## Currently the balls have the same life span as balls 1-56
 ## However this is not accurate, as these balls have only been available since 2013-October
 
