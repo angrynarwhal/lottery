@@ -6,7 +6,7 @@ import os
 
 # Load the lottery data from a CSV file (replace 'megamillions.csv' with the actual file path)
 # Use 'date_format' instead of 'date_parser'
-data = pd.read_csv('megamillions.csv', parse_dates=['date'], date_format='%m-%d-%y')
+data = pd.read_csv('megamillions13.csv', parse_dates=['date'], date_format='%m-%d-%y')
 
 # Assuming the numbers are represented in separate columns (e.g., 'Number 1', 'Number 2', ... 'Number N')
 # You can adjust the column names according to your dataset.
