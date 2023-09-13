@@ -53,6 +53,23 @@ number_probabilities = {number: freq / total_draws_1_year for number, freq in nu
 # Sort the numbers by their probability in descending order
 sorted_probabilities = sorted(number_probabilities.items(), key=lambda x: x[1], reverse=True)
 
+# Calculate the offset of the balls that have always been around versus 
+# the balls that have not and add that to the new balls
+n = 0
+m = 0
+for ball in number_probabilities.items():
+    if ball.is_permament():
+        permanent_average += ball
+        n += 1
+    else:
+        new_average += ball
+        m += 1
+offset = (permanent_average / n) - (new_average / m)
+for ball in number_probabilities.items():
+    if !ball.is_permament():
+        ball = ball + offset
+    
+
 # Display the probabilities of each number occurring in the previous 1 year
 for number, probability in sorted_probabilities:
     print(f"Number {number}: Probability = {probability:.6f}")
