@@ -1,0 +1,2 @@
+Since there is no data on the new lottery numbers besides the odds from once they were introduced, the best "normalization" we can do is assuming that the average of those numbers drawn since their introduction would be the same as if they had existed before their introduction.
+Because I have not taken statistics yet my best attempt at solving this problem would be to find the average of all of the yearly averages since the new numbers were introduced, and use that number as the "average" frequency of the new number for any year in which it is missing. 
