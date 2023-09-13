@@ -1,7 +1,10 @@
-My solution for the issues with balls 57 - 75 would be to calculate the average appearence rate of each ball empirically and average them all together. I would then add that to the historical data for the balls during years in which they didn't exist. Another way to calculate how many balls *should* appear in historical data would be to use simple statistical techniques to try to predict the historic average.
+My solution for the issues with balls 57 - 75 would be to calculate the average appearence rate of each ball empirically and average them all together. 
+I would then add that to the historical data for the balls during years in which they didn't exist. 
+Another way to calculate how many balls *should* appear in historical data would be to use simple statistical techniques to try to predict the historic average.
 
 
-A different and probably easier way would be to calculate the average difference in appearence rates between the balls that were always there and the new ones and simply add that difference to the new balls. 
+A different and probably easier way would be to calculate the average difference in appearence rates between the balls that were always there 
+and the new ones and simply add that difference to the new balls. 
 
 Some pseudocode for that would look like this:
 
