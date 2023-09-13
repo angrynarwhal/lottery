@@ -51,11 +51,12 @@ comp_date = data['date'][1191]
 for _, row in data.iterrows():
     date = row['date']
 
+### Added Code ###
     if date == comp_date:
         avg, sd = getStats(number_frequency)
         for number in range(57, max_number+1):
             number_frequency[number] = number_frequency[number] + math.floor(random.uniform(avg-sd, avg+sd))
-
+### --- ###
     
     # Calculate the weekly frequency
     for column in number_columns:
