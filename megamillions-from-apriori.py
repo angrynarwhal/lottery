@@ -130,7 +130,7 @@ with open('most_frequent_numbers.txt', 'w') as f:
 
 # Generate and save the cumulative frequency for each number by week, month, and year
 for number in range(1, max_number + 1):
-    date_freq = pd.DataFrame(cumulative_frequency[number], columns=['Date', 'Frequency'])
+    date_freq = pd.DataFrame(cumulative_frequency[number], columns=['Frequency', 'Date'])
     date_freq.set_index('Date', inplace=True)
     date_freq.index = pd.to_datetime(date_freq.index)  # Convert the index to a datetime-like index
 
