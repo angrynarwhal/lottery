@@ -1,0 +1,4 @@
+1. Calculate range of probabilities dataset
+2. Using normalization formula for custom ranges and a for loop to iterate over each data point, calculate its normalized value
+    Ex: x_normalized = (((x - x_minimum) * 2 {highest output}) / range_of_x) + 0 {lowest output}
+3. Re-assign data points as they are calculated to get a new result
