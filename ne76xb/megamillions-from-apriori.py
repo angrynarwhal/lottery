@@ -6,23 +6,29 @@ import os
 
 # Load the lottery data from a CSV file (replace 'megamillions.csv' with the actual file path)
 # Use 'date_format' instead of 'date_parser'
-data = pd.read_csv('megamillions.csv', parse_dates=['date'], date_format='%m-%d-%y')
+#ENB - CHANGED FILE PATH
+data = pd.read_csv('../megamillions.csv', parse_dates=['date'], date_format='%m-%d-%y')
 
 # Assuming the numbers are represented in separate columns (e.g., 'Number 1', 'Number 2', ... 'Number N')
 # You can adjust the column names according to your dataset.
 number_columns = ['a', 'b', 'c', 'd', 'e']
 
-# Determine the maximum number present in the dataset
+# Determine the maximum number present in the dataset gets max of rows then max of columns
 max_number = data[number_columns].max().max()
+
 
 # Create a dictionary to store the frequency of each number
 number_frequency = {number: 0 for number in range(1, max_number + 1)}
+number_frequency_test = {number: 0 for number in range(1, max_number + 1)}
+
 
 # Create a list to store the cumulative frequency for each number
 cumulative_frequency = {number: [] for number in range(1, max_number + 1)}
 
+
 # Calculate the start date for the previous 1 year
 one_year_ago = data['date'].max() - pd.DateOffset(years=1)
+
 
 # Iterate through each row of the data and calculate the weekly and cumulative frequencies
 for _, row in data.iterrows():
@@ -44,18 +50,33 @@ for _, row in data.iterrows():
             if 1 <= number <= max_number:  # Check if the number is within the valid range
                 cumulative_frequency[number].append((date, number_frequency[number]))
 
+# ENB - NORMALIZING NUMBER FREQUENCY FOR 57 - 75 TO BE DISPLAYED ON OVERALL GRAPH
+#per wikipedia page, first Megamillions drawing with numbers thru to 75 was October 22, 2013
+date_of_addition = '2013-10-22'
+draws_before_additions = data[data['date'] <= date_of_addition]['date'].count()
+total_draws = data['date'].count()
+#to normalize take each of the newly added ball frequencies divided by the number of drawings since their addition, and multiply by total drawings in the set
+#this will give you the frequencies for 57 thru 76 as if they had been in the set the whole time
+for i in range(57,76):
+    number_frequency[i] = round((number_frequency[i] / (total_draws-draws_before_additions)) * total_draws) #assuming dataset is large enough
+# ENB 
+
 # Calculate the total number of draws in the previous 1 year
 total_draws_1_year = data[data['date'] >= one_year_ago]['date'].count()
+
 
 # Calculate the probability of each number occurring in the previous 1 year
 number_probabilities = {number: freq / total_draws_1_year for number, freq in number_frequency.items()}
 
+
 # Sort the numbers by their probability in descending order
 sorted_probabilities = sorted(number_probabilities.items(), key=lambda x: x[1], reverse=True)
+
 
 # Display the probabilities of each number occurring in the previous 1 year
 for number, probability in sorted_probabilities:
     print(f"Number {number}: Probability = {probability:.6f}")
+
 
 # ...
 
@@ -67,9 +88,12 @@ for number, probability in sorted_probabilities:
 # Sort the numbers by their probability in descending order
 sorted_probabilities = sorted(number_probabilities.items(), key=lambda x: x[1], reverse=True)
 
+"""
+# ENB - REMOVING REDUNDANT CODE
 # Display the probabilities of each number occurring in the previous 1 year
 for number, probability in sorted_probabilities:
     print(f"Number {number}: Probability = {probability:.6f}")
+"""
 
 # Generate a bar chart for the probability of each number and save it to a file
 number_values, probabilities = zip(*sorted_probabilities)
@@ -82,6 +106,7 @@ plt.xticks(rotation=45)
 plt.tight_layout()
 plt.savefig('number_probabilities.png')
 plt.show()
+
 
 # Save the most frequent numbers by week, month, quarter, and year to a file
 with open('most_frequent_numbers.txt', 'w') as f:
