@@ -6,7 +6,7 @@ import os
 
 # Load the lottery data from a CSV file (replace 'megamillions.csv' with the actual file path)
 # Use 'date_format' instead of 'date_parser'
-data = pd.read_csv('megamillions.csv', parse_dates=['date'], date_format='%m-%d-%y')
+data = pd.read_csv('../megamillions.csv', parse_dates=['date'], date_format='%m-%d-%y')
 
 # Assuming the numbers are represented in separate columns (e.g., 'Number 1', 'Number 2', ... 'Number N')
 # You can adjust the column names according to your dataset.
@@ -47,8 +47,13 @@ for _, row in data.iterrows():
 # Calculate the total number of draws in the previous 1 year
 total_draws_1_year = data[data['date'] >= one_year_ago]['date'].count()
 
+# Modifications made by Ahhyun
 # Calculate the probability of each number occurring in the previous 1 year
 number_probabilities = {number: freq / total_draws_1_year for number, freq in number_frequency.items()}
+
+# Modify the probability calculation to exclude numbers 57-75
+valid_numbers = range(1, 57)
+number_probabilities = {number: number_probabilities[number] for number in valid_numbers}
 
 # Sort the numbers by their probability in descending order
 sorted_probabilities = sorted(number_probabilities.items(), key=lambda x: x[1], reverse=True)
@@ -56,7 +61,7 @@ sorted_probabilities = sorted(number_probabilities.items(), key=lambda x: x[1], 
 # Display the probabilities of each number occurring in the previous 1 year
 for number, probability in sorted_probabilities:
     print(f"Number {number}: Probability = {probability:.6f}")
-
+# Modifications made by Ahhyun ends
 # ...
 
 # ...
