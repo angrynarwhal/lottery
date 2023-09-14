@@ -44,16 +44,12 @@ for _, row in data.iterrows():
             if 1 <= number <= max_number:  # Check if the number is within the valid range
                 cumulative_frequency[number].append((date, number_frequency[number]))
 
+
 # Calculate the total number of draws in the previous 1 year
 total_draws_1_year = data[data['date'] >= one_year_ago]['date'].count()
 
-# Modifications made by Ahhyun
 # Calculate the probability of each number occurring in the previous 1 year
 number_probabilities = {number: freq / total_draws_1_year for number, freq in number_frequency.items()}
-
-# Modify the probability calculation to exclude numbers 57-75
-valid_numbers = range(1, 57)
-number_probabilities = {number: number_probabilities[number] for number in valid_numbers}
 
 # Sort the numbers by their probability in descending order
 sorted_probabilities = sorted(number_probabilities.items(), key=lambda x: x[1], reverse=True)
@@ -61,7 +57,9 @@ sorted_probabilities = sorted(number_probabilities.items(), key=lambda x: x[1], 
 # Display the probabilities of each number occurring in the previous 1 year
 for number, probability in sorted_probabilities:
     print(f"Number {number}: Probability = {probability:.6f}")
-# Modifications made by Ahhyun ends
+
+
+
 # ...
 
 # ...
@@ -75,6 +73,51 @@ sorted_probabilities = sorted(number_probabilities.items(), key=lambda x: x[1], 
 # Display the probabilities of each number occurring in the previous 1 year
 for number, probability in sorted_probabilities:
     print(f"Number {number}: Probability = {probability:.6f}")
+
+
+# ADDED BY ALX6D
+print("*****************************************************************************")
+print("***********************************[1-56]************************************")
+#Now let's examine the frequencies exclusively within the range of 1-56, persisting across all years.
+total_draws_all_years = data['date'].count()
+
+# Calculate the probability of each number occurring across all years.
+number_probabilities_all_year = {number: freq / total_draws_all_years for number, freq in number_frequency.items()}
+
+# Adjust the probability calculation to omit numbers within the range of 57-75.
+valid_numbers = range(1, 57)
+number_probabilities_all_year = {number: number_probabilities_all_year[number] for number in valid_numbers}
+
+# Sort the numbers by their probability in descending order
+sorted_probabilities_all_year = sorted(number_probabilities_all_year.items(), key=lambda x: x[1], reverse=True)
+
+#Show the probabilities of each number occurring exclusively within the range of 1-56 throughout all years.
+for number, probability in sorted_probabilities_all_year:
+    print(f"Number {number}: Probability = {probability:.6f}")
+
+print("*****************************************************************************")
+print("***********************************[57-75]***********************************")
+#Straightforward normalization approach: Determine the frequency by considering the first occurrence of the number within the range of 57-75, and then compare these frequencies with those above the range of 1-56.
+# year of ocurrence 57-75: 2013 (10 years ago)
+year_of_ocurrence_57_75= data['date'].max() - pd.DateOffset(years=10)
+total_draws_10_years = data[data['date'] >= year_of_ocurrence_57_75]['date'].count()
+
+# Calculate the probability of each number occurring over the previous 10 years.
+valid_numbers = range(57, 76)
+number_probabilities_57_75 = {number: freq / total_draws_10_years for number, freq in number_frequency.items()}
+number_probabilities_57_75 = {number: number_probabilities_57_75[number] for number in valid_numbers}
+
+# Sort the numbers by their probability in descending order
+sorted_probabilities_57_75 = sorted(number_probabilities_57_75.items(), key=lambda x: x[1], reverse=True)
+
+# Display the probabilities of each number occurring in the previous 10 year
+for number, probability in sorted_probabilities_57_75:
+    print(f"Number {number}: Probability = {probability:.6f}")
+
+# As shown in the printed list, the frequencies of 1-56 and 57-75 are evenly spread.
+print("*****************************************************************************")
+print("*****************************************************************************")
+# END OF ADDITION BY ALX6D
 
 # Generate a bar chart for the probability of each number and save it to a file
 number_values, probabilities = zip(*sorted_probabilities)
