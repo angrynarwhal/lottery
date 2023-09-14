@@ -57,6 +57,17 @@ sorted_probabilities = sorted(number_probabilities.items(), key=lambda x: x[1], 
 for number, probability in sorted_probabilities:
     print(f"Number {number}: Probability = {probability:.6f}")
 
+
+#### Christian Watts Design Changes ####
+#### Formula: x_normalized = (((x - x_minimum) * 2 {highest output}) / range_of_x) + 0 {lowest output} ####
+#           Psuedo Code: 
+# min_probability = min(sorted_probabilities)
+# max_probability = max(sorted_probabilities)
+# range = max_probability - min_probability
+# for number, probability in sorted_probabilities:
+#   normalized_prob = ((probability - min_probability) * 2) / range
+#   probability = normalized_prob
+
 # ...
 
 # ...
