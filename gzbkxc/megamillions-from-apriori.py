@@ -151,5 +151,6 @@ for number in range(1, max_number + 1):
     plt.savefig(filename)
     plt.close()
 
+
 # ...
 
