@@ -1,0 +1,1 @@
+I added code that only calculated the average pick rate over a week for the past 10 years. This was after the addition of 57 to 75, and it normalized the data so that 1 to 56 weren't as dominant.
