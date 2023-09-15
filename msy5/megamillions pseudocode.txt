@@ -1,0 +1,26 @@
+﻿startDate = first drawing date
+switch1Date = October 22, 2013
+switch2Date = October 31, 2017
+lastDrawing = most recent drawing date
+
+
+daysSinceStart = lastDrawing - startDate
+daysSinceSwitch1 = lastDrawing - switch1Date
+daysSinceSwitch2 = lastDrawing - switch2Date
+
+
+weight57-70 = timeSinceStart / timeSinceSwitch1
+weight71-75 = timeSinceStart / (timeSinceSwitch2 - timeSinceSwitch1)
+
+
+#calculate frequencies as normal
+
+
+
+
+for number, frequency in number_frequencies
+        if number > 56
+                if number < 71
+                        frequency *= weight57-70
+                else
+                        frequency *= weight71-75
