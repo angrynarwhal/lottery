@@ -46,22 +46,28 @@ for _, row in data.iterrows():
                 cumulative_frequency[number].append((date, number_frequency[number]))
 
 # New addition
-count = 0
-data = []
+datax = []
 #Iterate through numbers 57 - 75
 for n in range(75):
     #get count for number's amount of times picked
     m = 0
+    count = 0
+    td1 = "01.01.2013 00:00:00"
+    date_time = datetime.strptime(td1, '%d.%m.%Y %H:%M:%S')
     for i in cumulative_frequency[n+1]:
+        if (cumulative_frequency[n+1][m-1][0] > date_time):
+            print(cumulative_frequency[n+1][m-1][0])
+            count+=1
         m+=1
+
     #calculate time and rate of picks
     td = (cumulative_frequency[n+1][m-1][0]-cumulative_frequency[n+1][0][0])
     td_in_sec = td.total_seconds()
-    data.append(m*604800/td_in_sec)
+    datax.append(count*604800/td_in_sec)
     
 #Iterate through data
 i = 1
-for d in data:
+for d in datax:
     print(str(i)+" averages " + str(d)+" picks in a week")
     i+=1
 
