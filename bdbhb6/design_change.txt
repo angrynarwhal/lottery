@@ -1,0 +1,4 @@
+For my simple design change, I decided to modify the data so that the balls 57-75 were so skewed. 
+To do this, I went into megamillions.csv and got all of the dates that were before October 22, 2013.
+After running the program, the data set was no longer skewed. However, the balls 70-75 were still low compared
+to others which was intresting. Then, I added a header that makes clear of what the new dataset was. 
