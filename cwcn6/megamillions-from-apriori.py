@@ -60,7 +60,7 @@ for n in range(75):
         m+=1
 
     #calculate time and rate of picks
-    td = (cumulative_frequency[n+1][m-1][0]-cumulative_frequency[n+1][0][0])
+    td = (cumulative_frequency[n+1][m-1][0]-date_time)
     td_in_sec = td.total_seconds()
     datax.append(count*604800/td_in_sec)
     
