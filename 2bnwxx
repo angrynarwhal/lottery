@@ -1,0 +1,10 @@
+not sure what "normalize the historical averages" means but here's my take
+
+GOAL: Fix probabilities being skewed low for recently introduced megaballs
+
+Start: For "previous 1 year" powerball frequency is counted starting from previous 1 year.
+1. "recent_number_frequency" : powerball number frequencies starting from the previous year
+2. number_probabilities now counts from "recent_number_frequency"'
+
+Progress:
+EDITs made: #24, #50, #60
