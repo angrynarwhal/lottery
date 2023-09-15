@@ -28,7 +28,7 @@ one_year_ago = data['date'].max() - pd.DateOffset(years=1)
 for _, row in data.iterrows():
     date = row['date']
     # if date is before 2013, ignore the data
-    if date.year <=2013:
+    if date.year < 2013:
         continue
 
     # Calculate the weekly frequency
