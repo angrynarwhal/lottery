@@ -4,4 +4,4 @@ In the current program, we can introduce a multiplier to adjust probabilities ba
 
 We could continue this approach in the future to furthor optimize the algorithm. By refining these algorithms over time, we can increase our chances in the seemingly impossible game that is the lottery.
 
-![Alt Text]([Image URL](https://github.com/thromwill/lottery/blob/main/wrtkb8/img.jpg)https://github.com/thromwill/lottery/blob/main/wrtkb8/img.jpg)
+![Alt Text](https://github.com/thromwill/lottery/blob/main/wrtkb8/img.jpg)
