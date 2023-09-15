@@ -56,7 +56,6 @@ for n in range(75):
     date_time = datetime.strptime(td1, '%d.%m.%Y %H:%M:%S')
     for i in cumulative_frequency[n+1]:
         if (cumulative_frequency[n+1][m-1][0] > date_time):
-            print(cumulative_frequency[n+1][m-1][0])
             count+=1
         m+=1
 
