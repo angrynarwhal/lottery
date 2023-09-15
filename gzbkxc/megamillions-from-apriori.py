@@ -1,3 +1,14 @@
+# Psuedocode:
+#
+# Split the dates by when the balls were introduced
+# Check when creating the graph based on the two sets of dates seperately
+# appropriately scale the data with the new split calculations
+# One year ago variable should instead use the new range of dates mashed back together
+# 
+#
+
+
+
 #!/usr/bin/env python
 # coding: utf-8
 import pandas as pd
