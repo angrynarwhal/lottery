@@ -6,7 +6,8 @@ import os
 
 # Load the lottery data from a CSV file (replace 'megamillions.csv' with the actual file path)
 # Use 'date_format' instead of 'date_parser'
-data = pd.read_csv('megamillions.csv', parse_dates=['date'], date_format='%m-%d-%y')
+# Update path to data
+data = pd.read_csv('../megamillions.csv', parse_dates=['date'], date_format='%m-%d-%y')
 
 # Assuming the numbers are represented in separate columns (e.g., 'Number 1', 'Number 2', ... 'Number N')
 # You can adjust the column names according to your dataset.
@@ -43,6 +44,14 @@ for _, row in data.iterrows():
             number = int(number)
             if 1 <= number <= max_number:  # Check if the number is within the valid range
                 cumulative_frequency[number].append((date, number_frequency[number]))
+
+# Update megamillions_from_apriori.py to account for the addition of balls 57-75 in 2013
+# Looks like first occurrence of the new balls is 10/22/13
+# new_date = '2013-10-22'
+# draws = (count of total draws since 2002)
+# draws_since_2013 = (count of total draws after balls were added)
+# for i in range(57,76):
+#   number_frequency[i] = (number_frequency[i] / (draws - draws_before_additions)) * draws
 
 # Calculate the total number of draws in the previous 1 year
 total_draws_1_year = data[data['date'] >= one_year_ago]['date'].count()
