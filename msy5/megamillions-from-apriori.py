@@ -33,7 +33,7 @@ lastDrawing = data['date'].max()
 timeSinceStart = lastDrawing - startDate
 timeSinceSwitch1 = lastDrawing - switch1Date
 timeSinceSwitch2 = lastDrawing - switch2Date
-    
+#find weights 57-75
 weight57_70 = timeSinceStart / timeSinceSwitch1
 weight71_75 = timeSinceStart / (timeSinceSwitch1 - timeSinceSwitch2)
 
@@ -63,6 +63,7 @@ total_draws_1_year = data[data['date'] >= one_year_ago]['date'].count()
 # Calculate the probability of each number occurring in the previous 1 year
 number_probabilities = {number: freq / total_draws_1_year for number, freq in number_frequency.items()}
 
+#adjust probabilities using weights
 for number in number_probabilities.keys():
     if number > 56:
         if number < 71:
