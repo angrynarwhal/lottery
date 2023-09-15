@@ -1,0 +1,16 @@
+GOAL: Try and normalize the data for the balls that were added after the fact.
+
+The balls were added in October 22, 2013.
+
+To normalize them, I will use the following formula:
+    new_probability = (old_probability / number_of_balls_after_Oct22_2013) * number_of_occurances_of_all_balls
+
+This would find the probability of the balls as if they would be if they were always in the dataset (estimated).
+
+To implement this:
+    - For each ball 57-75, find the probability using the usual method. Let's call this X.
+    - Find the number of balls drawn on October 22, 2013 or later. Let's call this Y.
+    - Divide X by Y. Let's call this Z.
+    - Find the number of balls drawn in total for our dataset.
+    - Multiple Z by this total.
+    - This is the new probability for the new balls that estimates their probability if they were always part of the dataset.
