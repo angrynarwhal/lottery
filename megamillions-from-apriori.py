@@ -21,6 +21,9 @@ number_frequency = {number: 0 for number in range(1, max_number + 1)}
 # Create a list to store the cumulative frequency for each number
 cumulative_frequency = {number: [] for number in range(1, max_number + 1)}
 
+# Create a list to store the cumulative frequency for the previous 1 year
+recent_number_frequency = {number: 0 for number in range(1, max_number + 1)}
+
 # Calculate the start date for the previous 1 year
 one_year_ago = data['date'].max() - pd.DateOffset(years=1)
 
@@ -43,12 +46,16 @@ for _, row in data.iterrows():
             number = int(number)
             if 1 <= number <= max_number:  # Check if the number is within the valid range
                 cumulative_frequency[number].append((date, number_frequency[number]))
+                
+                # Calculate the total frequencies in the previous 1 year
+                if date >= one_year_ago:
+                    recent_number_frequency[number] = recent_number_frequency.get(number, 0) + 1
 
 # Calculate the total number of draws in the previous 1 year
 total_draws_1_year = data[data['date'] >= one_year_ago]['date'].count()
 
 # Calculate the probability of each number occurring in the previous 1 year
-number_probabilities = {number: freq / total_draws_1_year for number, freq in number_frequency.items()}
+number_probabilities = {number: freq / total_draws_1_year for number, freq in recent_number_frequency.items()}
 
 # Sort the numbers by their probability in descending order
 sorted_probabilities = sorted(number_probabilities.items(), key=lambda x: x[1], reverse=True)
@@ -152,4 +159,3 @@ for number in range(1, max_number + 1):
     plt.close()
 
 # ...
-
