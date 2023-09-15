@@ -27,7 +27,9 @@ one_year_ago = data['date'].max() - pd.DateOffset(years=1)
 # Iterate through each row of the data and calculate the weekly and cumulative frequencies
 for _, row in data.iterrows():
     date = row['date']
-    
+    if date.year <=2013:
+        continue
+
     # Calculate the weekly frequency
     for column in number_columns:
         number = row[column]
@@ -47,24 +49,8 @@ for _, row in data.iterrows():
 # Calculate the total number of draws in the previous 1 year
 total_draws_1_year = data[data['date'] >= one_year_ago]['date'].count()
 
-#################################################################################
-#   Use the normalization formula instead of the regular probability formula    #
-#################################################################################
-
-# Split the list
-probs_1 = {number:prob for number,prob in number_frequency.items() if number <= 56}
-probs_2 = {number:prob for number,prob in number_frequency.items() if number >= 57}
-
-# Apply normalization to each list individually
-fin_probs_1 = {number: ((prob-min(probs_1.values())) / (max(probs_1.values())-min(probs_1.values()))) for number, prob in probs_1.items()}
-fin_probs_2 = {number: ((prob-min(probs_2.values())) / (max(probs_2.values())-min(probs_2.values()))) for number, prob in probs_2.items()}
-
-# Merge lists
-number_probabilities = {**fin_probs_1, **fin_probs_2}
-
-# Apply normalization formula
-# range = max(number_probabilities_1.values()) - min(number_probabilities_1.values())
-# number_probabilities = {number: ((prob-min(number_probabilities_1.values())) / range) for number, prob in number_probabilities_1.items()}
+# Calculate the probability of each number occurring in the previous 1 year
+number_probabilities = {number: freq / total_draws_1_year for number, freq in number_frequency.items()}
 
 # Sort the numbers by their probability in descending order
 sorted_probabilities = sorted(number_probabilities.items(), key=lambda x: x[1], reverse=True)
