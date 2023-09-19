@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 # coding: utf-8
+import datetime
 import pandas as pd
 import matplotlib.pyplot as plt
 import os
@@ -27,22 +28,23 @@ one_year_ago = data['date'].max() - pd.DateOffset(years=1)
 # Iterate through each row of the data and calculate the weekly and cumulative frequencies
 for _, row in data.iterrows():
     date = row['date']
-    
-    # Calculate the weekly frequency
-    for column in number_columns:
-        number = row[column]
-        if pd.notnull(number):
-            number = int(number)
-            if 1 <= number <= max_number:  # Check if the number is within the valid range
-                number_frequency[number] = number_frequency.get(number, 0) + 1
+    dtest = datetime.datetime(2017,10,28) #only uses data points from after 10/28/2017 when the amount of balls was reduced from 75 back to 70.
+    if(date > dtest):
+        # Calculate the weekly frequency
+        for column in number_columns:
+            number = row[column]
+            if pd.notnull(number):
+                number = int(number)
+                if 1 <= number <= max_number:  # Check if the number is within the valid range
+                    number_frequency[number] = number_frequency.get(number, 0) + 1
 
     # Calculate the cumulative frequency by month, quarter, and year
-    for column in number_columns:
-        number = row[column]
-        if pd.notnull(number):
-            number = int(number)
-            if 1 <= number <= max_number:  # Check if the number is within the valid range
-                cumulative_frequency[number].append((date, number_frequency[number]))
+        for column in number_columns:
+            number = row[column]
+            if pd.notnull(number):
+                number = int(number)
+                if 1 <= number <= max_number:  # Check if the number is within the valid range
+                    cumulative_frequency[number].append((date, number_frequency[number]))
 
 # Calculate the total number of draws in the previous 1 year
 total_draws_1_year = data[data['date'] >= one_year_ago]['date'].count()
