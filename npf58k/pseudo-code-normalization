@@ -1,0 +1,10 @@
+To account for the newly used numbers 57-75, I would implemented a weighted average calculation within megamillions-from-apriori.py.
+
+Here's a rough idea of how it would work:
+- create a variable that defines the start date of when the 57-75 balls were introduced (we can call it 57_75_start_date to match the snake casing)
+- calculate the normalized probabilities
+    - make a dictionary to store the normalized probabilities for each number
+    - balls 1-56's frequencies are calculated using the entire historical dataset
+    - balls 57-75's frequencies are calculated based on draws that occured AFTER their introduction (the 57_75_start_date)
+    - calculate the normalized probability for each number by just dividing its frequency by the TOTAL draws in the previous year (the value of total_draws_1_year)
+- then just sort the normalized probabilities
