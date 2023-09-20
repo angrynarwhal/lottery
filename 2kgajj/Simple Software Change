@@ -1,0 +1,14 @@
+##### Simple Software Change #####
+#
+# - Normalize the historical averages to account for the more recent introduction of balls 57-75??
+# - My Interpretation {
+#     What comes to my mind is two different approaches:
+#     -- 1: Compare the historical averages to the newer ones with balls 57-75 to find out what amount of weight or impact the new editions added.
+#     -- 2: Reconstruct all of the old data to include the extra balls and compare the old averages with less balls to the reconstructed ones.
+#     Use these averages to create new probabilites for the lotto
+#    }
+#  Functions:
+#    function to remove data based on the ball number
+#    funciton to add data based on ball number
+#    funciton to compare data
+#    funciton for probability
