@@ -1,0 +1,3 @@
+The change that I made to the file 'meggamillions-from-apriori.py' file was on line 31-32 where i declared a vaiable 'dtest' equal to the dat 10/28/2017 when 
+the megamillions lottery reduced the number of balls in the lottery from 75 to 70. then I had an if statement check if the date data being passed was
+greater to dtest. this insured that the output data of number frequency would be nomalized and relevant to recent years of the lottery.
