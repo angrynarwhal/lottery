@@ -1,0 +1,11 @@
+-To normalize, I created a function normalize_probability that adjusts the probability of balls 57-75 based on the draws since their introduction. 
+
+
+Assuming that the ball numbers and their probabilities are given
+-normalize_probability takes in 2 parameters(balls, introduction_date)
+In this function, 2 variables are created current_date and draws_since_introduction
+current_date gets the current date, and draws_since_introduction calculates the number of draws since introduction
+ 
+-Finally, to adjust based on draws since introduction, I perform the calculation 
+ball.probability /= draws_since_introduction
+
