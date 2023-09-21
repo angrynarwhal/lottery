@@ -1,0 +1,13 @@
+Intent: 
+Normalize the historical averages to account for the more recent introduction of balls 57-75.
+
+Equation:
+    normalized_probability = ((probability / numb_of_balls_2013-10-22) * total_num_of_balls)
+
+Steps:
+- Find probability of balls 57-75
+- Find number of balls drawn 2013-10-22 or after
+- Find number of total balls drawn
+- Divide the probability by the number of balls drawn 2013-10-22 or after (Step1 / Step2)
+- Multiply the result of the last step with the total number of balls drawn (Step4 * Step3)
+- This result is the normalized probability of balls 57-75
