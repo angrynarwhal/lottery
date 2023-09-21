@@ -1,0 +1,33 @@
+Idea 1: delete numbers 57-75 so they don't skew the data, or excluding numbers 1-56. That way the frequencies will be more even.
+Changes: capping the number range at 56, or starting the number range at 57. 
+
+Pseudocode:
+# Create a dictionary to store the frequency of each number
+number_frequency = {number: 0 for number in range(1, 56 + 1)}
+# Create a list to store the cumulative frequency for each number
+cumulative_frequency = {number: [] for number in range(1, 56 + 1)}
+
+or 
+
+# Create a dictionary to store the frequency of each number
+number_frequency = {number: 0 for number in range(57, max_number + 1)}
+# Create a list to store the cumulative frequency for each number
+cumulative_frequency = {number: [] for number in range(57, max_number + 1)}
+
+--------
+
+Idea 2: Manually raise the probability for numbers 57-75 to be selected.
+Changes: adding 1.0 to number_probabilities for numbers 57-75 after they have been calculated.
+
+Pseudocode:
+# Calculate the probability of each number occurring in the previous 1 year
+number_probabilities = {number: freq / total_draws_1_year for number, freq in number_frequency.items()}
+
+for (any number between 57-75) {
+      numberprobability += 1.0;
+}
+
+--------
+
+Idea 3: modify the data, which cannot be done for this assignment
+
